@@ -21,7 +21,7 @@ export const generateAIAlerts = (
       type: 'warning',
       category: 'bill',
       title: 'High Unpaid Bills Detected',
-      message: `You have $${totalUnpaid.toFixed(2)} in unpaid bills. Consider paying soon to avoid late fees.`,
+      message: `You have ₹${totalUnpaid.toFixed(2)} in unpaid bills. Consider paying soon to avoid late fees.`,
       priority: 'high',
       timestamp: new Date().toISOString(),
       isRead: false,
@@ -38,7 +38,7 @@ export const generateAIAlerts = (
         type: 'warning',
         category: 'bill',
         title: `${bill.name} is Overdue`,
-        message: `Payment of $${bill.amount} was due ${daysOverdue} days ago. Late fees may apply.`,
+        message: `Payment of ₹${bill.amount} was due ${daysOverdue} days ago. Late fees may apply.`,
         priority: 'high',
         timestamp: new Date().toISOString(),
         isRead: false,
@@ -56,7 +56,7 @@ export const generateAIAlerts = (
         type: 'suggestion',
         category: 'bill',
         title: 'Recurring Bill Optimization',
-        message: `Your monthly recurring bills total $${avgMonthlyRecurring.toFixed(2)}. Consider reviewing subscriptions and bundling services for potential savings.`,
+        message: `Your monthly recurring bills total ₹${avgMonthlyRecurring.toFixed(2)}. Consider reviewing subscriptions and bundling services for potential savings.`,
         priority: 'medium',
         timestamp: new Date().toISOString(),
         isRead: false,
@@ -97,7 +97,7 @@ export const generateAIAlerts = (
         type: 'prediction',
         category: 'maintenance',
         title: `${record.item} Service Due Soon`,
-        message: `Maintenance scheduled in ${daysUntil} days. Estimated cost: $${estimatedCost.toFixed(2)}. Book early to secure best rates.`,
+        message: `Maintenance scheduled in ${daysUntil} days. Estimated cost: ₹${estimatedCost.toFixed(2)}. Book early to secure best rates.`,
         priority: 'medium',
         timestamp: new Date().toISOString(),
         isRead: false,
@@ -139,7 +139,7 @@ export const generateAIAlerts = (
       type: 'prediction',
       category: 'bill',
       title: 'Next Month Cost Forecast',
-      message: `Predicted expenses: $${costPrediction.total.toFixed(2)} (Bills: $${costPrediction.bills.toFixed(2)}, Maintenance: $${costPrediction.maintenance.toFixed(2)})`,
+      message: `Predicted expenses: ₹${costPrediction.total.toFixed(2)} (Bills: ₹${costPrediction.bills.toFixed(2)}, Maintenance: ₹${costPrediction.maintenance.toFixed(2)})`,
       priority: 'low',
       timestamp: new Date().toISOString(),
       isRead: false,
@@ -208,7 +208,7 @@ function generateEnergyInsights(bills: Bill[], season: string) {
     insights.push({
       type: 'electricity',
       title: 'High Electricity Usage Detected',
-      message: `Current bill: $${electricBill.amount}. ${seasonalTip} Potential savings: $30-50/month.`,
+      message: `Current bill: ₹${electricBill.amount}. ${seasonalTip} Potential savings: ₹2,000-4,000/month.`,
       priority: 'medium',
     });
   }
@@ -217,7 +217,7 @@ function generateEnergyInsights(bills: Bill[], season: string) {
     insights.push({
       type: 'water',
       title: 'Water Conservation Opportunity',
-      message: `Water bill is $${waterBill.amount}. Check for leaks, install low-flow showerheads, and run dishwasher/washer with full loads only.`,
+      message: `Water bill is ₹${waterBill.amount}. Check for leaks, install low-flow showerheads, and run dishwasher/washer with full loads only.`,
       priority: 'medium',
     });
   }

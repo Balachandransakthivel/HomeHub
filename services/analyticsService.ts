@@ -214,7 +214,7 @@ export const generatePredictiveInsights = (
   
   const electricitySpend = categorySpending.find(c => c.category === 'electricity');
   if (electricitySpend && electricitySpend.amount > 150) {
-    savingsOpportunities.push(`Reduce electricity by 15% with LED bulbs and smart thermostat (Save ~$${(electricitySpend.amount * 0.15).toFixed(0)}/mo)`);
+    savingsOpportunities.push(`Reduce electricity by 15% with LED bulbs and smart thermostat (Save ~₹${(electricitySpend.amount * 0.15).toFixed(0)}/mo)`);
   }
 
   const internetSpend = categorySpending.find(c => c.category === 'internet');

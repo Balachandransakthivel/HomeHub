@@ -351,7 +351,7 @@ export default function MaintenanceScreen() {
                   {selectedRecord.cost !== undefined && (
                     <View style={styles.detailRow}>
                       <Text style={styles.detailLabel}>Last Cost:</Text>
-                      <Text style={styles.detailValue}>${selectedRecord.cost.toFixed(2)}</Text>
+                      <Text style={styles.detailValue}>₹{selectedRecord.cost.toFixed(2)}</Text>
                     </View>
                   )}
                   {selectedRecord.notes && (
@@ -386,7 +386,7 @@ export default function MaintenanceScreen() {
                             {new Date(entry.date).toLocaleDateString()}
                           </Text>
                           <Text style={styles.historyDescription}>{entry.description}</Text>
-                          <Text style={styles.historyCost}>${entry.cost.toFixed(2)}</Text>
+                          <Text style={styles.historyCost}>₹{entry.cost.toFixed(2)}</Text>
                         </View>
                       ))
                     ) : (

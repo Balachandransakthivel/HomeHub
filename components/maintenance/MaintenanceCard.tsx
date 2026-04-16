@@ -65,7 +65,7 @@ export function MaintenanceCard({ record, onPress }: MaintenanceCardProps) {
           )}
         </View>
         {record.cost !== undefined && (
-          <Text style={styles.cost}>Last cost: ${record.cost.toFixed(2)}</Text>
+          <Text style={styles.cost}>Last cost: ₹{record.cost.toFixed(2)}</Text>
         )}
         {record.isRecurring && (
           <View style={styles.recurringBadge}>

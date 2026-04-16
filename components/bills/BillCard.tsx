@@ -56,7 +56,7 @@ export function BillCard({ bill, onPress, onTogglePaid }: BillCardProps) {
       
       <View style={styles.right}>
         <Text style={[styles.amount, { color: statusColor }]}>
-          ${bill.amount.toFixed(2)}
+          ₹{bill.amount.toFixed(2)}
         </Text>
         {onTogglePaid && (
           <Pressable onPress={onTogglePaid} hitSlop={8}>

@@ -79,7 +79,7 @@ export default function AnalyticsScreen() {
             <InsightCard
               icon="trending-up"
               title="Next Month Forecast"
-              value={`$${predictiveInsights.nextMonthEstimate.toFixed(0)}`}
+              value={`₹${predictiveInsights.nextMonthEstimate.toFixed(0)}`}
               subtitle={`Trend: ${predictiveInsights.costTrend}`}
               color={theme.colors.primary}
               trend={predictiveInsights.costTrend === 'increasing' ? 'up' : predictiveInsights.costTrend === 'decreasing' ? 'down' : 'stable'}
@@ -87,7 +87,7 @@ export default function AnalyticsScreen() {
             <InsightCard
               icon="account-balance-wallet"
               title="Monthly Average"
-              value={`$${billTrends.averageAmount.toFixed(0)}`}
+              value={`₹${billTrends.averageAmount.toFixed(0)}`}
               subtitle="Per bill"
               color={theme.colors.secondary}
             />
@@ -127,7 +127,7 @@ export default function AnalyticsScreen() {
           <InsightCard
             icon="refresh"
             title="Recurring Bills Total"
-            value={`$${billTrends.recurringTotal.toFixed(0)}`}
+            value={`₹${billTrends.recurringTotal.toFixed(0)}`}
             subtitle="Monthly recurring expenses"
             color={theme.colors.warning}
           />
@@ -184,14 +184,14 @@ export default function AnalyticsScreen() {
             <InsightCard
               icon="attach-money"
               title="Total Maintenance Cost"
-              value={`$${maintenanceInsights.totalCost.toFixed(0)}`}
-              subtitle={`Avg: $${maintenanceInsights.averageCost.toFixed(0)}`}
+              value={`₹${maintenanceInsights.totalCost.toFixed(0)}`}
+              subtitle={`Avg: ₹${maintenanceInsights.averageCost.toFixed(0)}`}
               color={theme.colors.primary}
             />
             <InsightCard
               icon="event"
               title="Upcoming Costs"
-              value={`$${maintenanceInsights.upcomingCosts.toFixed(0)}`}
+              value={`₹${maintenanceInsights.upcomingCosts.toFixed(0)}`}
               subtitle="Next 30 days"
               color={theme.colors.warning}
             />
@@ -203,7 +203,7 @@ export default function AnalyticsScreen() {
               {maintenanceInsights.byType.map(item => (
                 <View key={item.type} style={styles.breakdownItem}>
                   <Text style={styles.breakdownType}>{item.type}</Text>
-                  <Text style={styles.breakdownValue}>${item.cost.toFixed(0)}</Text>
+                  <Text style={styles.breakdownValue}>₹{item.cost.toFixed(0)}</Text>
                 </View>
               ))}
             </View>
