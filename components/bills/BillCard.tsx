@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
 import { theme } from '@/constants/theme';
 import { Bill } from '@/types';
@@ -42,27 +43,41 @@ export function BillCard({ bill, onPress, onTogglePaid }: BillCardProps) {
       onPressIn={() => setPressed(true)}
       onPressOut={() => setPressed(false)}
     >
-      <View style={[styles.iconContainer, { backgroundColor: `${statusColor}15` }]}>
-        <MaterialIcons name={categoryIcons[bill.category]} size={24} color={statusColor} />
-      </View>
-      
+      {/* Left accent stripe */}
+      <View style={[styles.stripe, { backgroundColor: statusColor }]} />
+
+      <LinearGradient
+        colors={[`${statusColor}12`, 'transparent']}
+        style={styles.iconContainer}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <MaterialIcons name={categoryIcons[bill.category]} size={22} color={statusColor} />
+      </LinearGradient>
+
       <View style={styles.content}>
         <Text style={styles.name}>{bill.name}</Text>
-        <Text style={styles.date}>
-          Due: {dueDate.toLocaleDateString()}
-          {bill.isRecurring && ' • Recurring'}
-        </Text>
+        <View style={styles.metaRow}>
+          <MaterialIcons name="event" size={12} color={theme.colors.textTertiary} />
+          <Text style={styles.date}>{dueDate.toLocaleDateString()}</Text>
+          {bill.isRecurring && (
+            <View style={styles.recurBadge}>
+              <MaterialIcons name="repeat" size={10} color={theme.colors.primary} />
+              <Text style={styles.recurText}>Monthly</Text>
+            </View>
+          )}
+        </View>
+        {isOverdue && <Text style={styles.overdueLabel}>⚠️ Overdue</Text>}
+        {isDueSoon && !isOverdue && <Text style={styles.dueSoonLabel}>Due Soon</Text>}
       </View>
-      
+
       <View style={styles.right}>
-        <Text style={[styles.amount, { color: statusColor }]}>
-          ₹{bill.amount.toFixed(2)}
-        </Text>
+        <Text style={[styles.amount, { color: statusColor }]}>₹{bill.amount.toFixed(2)}</Text>
         {onTogglePaid && (
-          <Pressable onPress={onTogglePaid} hitSlop={8}>
+          <Pressable onPress={onTogglePaid} hitSlop={8} style={[styles.checkBtn, { borderColor: statusColor }]}>
             <MaterialIcons
               name={bill.isPaid ? 'check-circle' : 'radio-button-unchecked'}
-              size={24}
+              size={22}
               color={statusColor}
             />
           </Pressable>
@@ -77,40 +92,36 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: theme.colors.surface,
-    padding: theme.spacing.md,
     borderRadius: theme.borderRadius.lg,
-    gap: theme.spacing.md,
+    gap: 12,
+    overflow: 'hidden',
+    paddingRight: theme.spacing.md,
+    paddingVertical: 12,
     ...theme.shadows.sm,
   },
-  cardPressed: {
-    opacity: 0.7,
-  },
+  cardPressed: { opacity: 0.75, transform: [{ scale: 0.98 }] },
+  stripe: { width: 4, height: '100%', minHeight: 60, borderRadius: 2, marginLeft: 0 },
   iconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: theme.borderRadius.md,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 44, height: 44, borderRadius: 22,
+    alignItems: 'center', justifyContent: 'center',
   },
-  content: {
-    flex: 1,
-  },
+  content: { flex: 1 },
   name: {
-    fontSize: theme.fontSize.base,
-    fontWeight: theme.fontWeight.semibold,
-    color: theme.colors.text,
-    marginBottom: 4,
+    fontSize: theme.fontSize.base, fontWeight: theme.fontWeight.semibold,
+    color: theme.colors.text, marginBottom: 4,
   },
-  date: {
-    fontSize: theme.fontSize.sm,
-    color: theme.colors.textSecondary,
+  metaRow: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  date: { fontSize: theme.fontSize.xs, color: theme.colors.textSecondary },
+  recurBadge: {
+    flexDirection: 'row', alignItems: 'center', gap: 2,
+    backgroundColor: theme.colors.primaryLight,
+    paddingHorizontal: 6, paddingVertical: 2,
+    borderRadius: theme.borderRadius.full,
   },
-  right: {
-    alignItems: 'flex-end',
-    gap: 8,
-  },
-  amount: {
-    fontSize: theme.fontSize.lg,
-    fontWeight: theme.fontWeight.bold,
-  },
+  recurText: { fontSize: 9, color: theme.colors.primary, fontWeight: theme.fontWeight.semibold },
+  overdueLabel: { fontSize: theme.fontSize.xs, color: theme.colors.danger, fontWeight: theme.fontWeight.semibold, marginTop: 2 },
+  dueSoonLabel: { fontSize: theme.fontSize.xs, color: theme.colors.warning, fontWeight: theme.fontWeight.semibold, marginTop: 2 },
+  right: { alignItems: 'flex-end', gap: 6 },
+  amount: { fontSize: theme.fontSize.lg, fontWeight: theme.fontWeight.bold },
+  checkBtn: { width: 30, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center' },
 });

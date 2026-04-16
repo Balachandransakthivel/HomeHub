@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
 import { MaintenanceRecord } from '@/types';
 import { theme } from '@/constants/theme';
@@ -42,9 +43,15 @@ export function MaintenanceCard({ record, onPress }: MaintenanceCardProps) {
       ]}
       onPress={onPress}
     >
-      <View style={[styles.iconContainer, { backgroundColor: `${getTypeColor()}20` }]}>
-        <MaterialIcons name={getTypeIcon()} size={24} color={getTypeColor()} />
-      </View>
+      {isOverdue && <View style={styles.overdueStripe} />}
+      <LinearGradient
+        colors={[getTypeColor(), `${getTypeColor()}99`] as [string,string]}
+        style={styles.iconContainer}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <MaterialIcons name={getTypeIcon()} size={22} color="#FFF" />
+      </LinearGradient>
 
       <View style={styles.content}>
         <Text style={styles.item}>{record.item}</Text>
@@ -90,14 +97,23 @@ const styles = StyleSheet.create({
     borderRadius: theme.borderRadius.lg,
     alignItems: 'center',
     gap: theme.spacing.md,
+    overflow: 'hidden',
     ...theme.shadows.sm,
   },
   pressed: {
     opacity: 0.7,
   },
   overdueContainer: {
-    borderLeftWidth: 4,
-    borderLeftColor: theme.colors.danger,
+    borderWidth: 0,
+  },
+  overdueStripe: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 4,
+    backgroundColor: theme.colors.danger,
+    borderRadius: 2,
   },
   iconContainer: {
     width: 48,
@@ -105,6 +121,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     alignItems: 'center',
     justifyContent: 'center',
+    ...theme.shadows.sm,
   },
   content: {
     flex: 1,
